@@ -2,6 +2,11 @@ export const html = `
   <html lang='en'>
     <head>
       <title>preview</title>
+      <style>
+        html {
+          background-color: white;
+        }
+      </style>
     </head>
     <body>
       <div id='root' />
