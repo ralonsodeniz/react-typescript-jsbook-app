@@ -13,7 +13,7 @@ interface ICodeCellProps {
 
 const CodeCell: FC<ICodeCellProps> = ({ service }) => {
   const [input, setInput] = useState('');
-  const { code, handleBuild } = useBuild(input, service);
+  const { code, error, handleBuild } = useBuild(input, service);
   const { debouncedCallback: debouncedHandleBuild } = useDebounce(
     handleBuild,
     1000,
@@ -29,7 +29,7 @@ const CodeCell: FC<ICodeCellProps> = ({ service }) => {
         <ResizableContainer direction="horizontal">
           <CodeEditor initialValue={input} onChange={setInput} />
         </ResizableContainer>
-        <Preview code={code} />
+        <Preview code={code} error={error} />
       </Container>
     </ResizableContainer>
   );

@@ -5,19 +5,20 @@ import { wait } from '../../utils/wait';
 
 interface IPreviewProps {
   code: string;
+  error: string;
 }
 
-const Preview: FC<IPreviewProps> = ({ code }) => {
+const Preview: FC<IPreviewProps> = ({ code, error }) => {
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   useEffect(() => {
     if (iframeRef.current) iframeRef.current.srcdoc = html;
     const waitTimer = wait(
-      () => iframeRef?.current?.contentWindow?.postMessage(code, '*'),
+      () => iframeRef?.current?.contentWindow?.postMessage(error || code, '*'),
       50,
     );
     return () => clearTimeout(waitTimer);
-  }, [code]);
+  }, [code, error]);
 
   return (
     <Wrapper>
