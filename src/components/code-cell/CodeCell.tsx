@@ -1,8 +1,8 @@
 import { useState, useEffect, FC } from 'react';
 import { Service } from 'esbuild-wasm';
 import { useBuild } from '../../hooks/use-build';
-import CodeEditor from '../code-editor';
-import Preview from '../preview';
+import CodeEditor from './components/code-editor';
+import Preview from './components/preview';
 import ResizableContainer from '../resizable-container';
 import { Container } from './CodeCell.styled';
 import { useDebounce } from '../../hooks/use-debounce';

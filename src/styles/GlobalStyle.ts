@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
-import { Wrapper } from '../components/preview/Preview.styled';
+import { Wrapper } from '../components/code-cell/components/preview/Preview.styled';
 
 export default createGlobalStyle`
   .react-resizable-handle {

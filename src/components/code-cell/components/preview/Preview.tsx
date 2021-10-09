@@ -1,7 +1,7 @@
 import { FC, useRef, useEffect } from 'react';
 import { html } from './config/base-html';
 import { Wrapper, Iframe } from './Preview.styled';
-import { wait } from '../../utils/wait';
+import { wait } from '../../../../utils/wait';
 
 interface IPreviewProps {
   code: string;
