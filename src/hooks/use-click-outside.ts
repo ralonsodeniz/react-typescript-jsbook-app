@@ -14,9 +14,11 @@ export const useClickOutside = (
       )
         callback();
     };
-    document.addEventListener('click', listener, { capture: true });
+    // this is the same as bellow document.addEventListener('click', listener, { capture: true });
+    // but using useCapture param instead of properties object
+    document.addEventListener('click', listener, true);
     return () => {
-      document.removeEventListener('click', listener, { capture: true });
+      document.removeEventListener('click', listener, true);
     };
   }, [callback, refs]);
 };
