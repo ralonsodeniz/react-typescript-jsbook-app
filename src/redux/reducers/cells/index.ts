@@ -1,5 +1,5 @@
-import { createSlice, nanoid, PayloadAction } from '@reduxjs/toolkit';
-import { ICellsState, IInsertCellBefore, TCellTypes } from '../../types/cell';
+import { createSlice } from '@reduxjs/toolkit';
+import { ICellsState } from '../../types/cell';
 import { reducers } from '../../actions/cells';
 
 const initialState: ICellsState = {
@@ -14,23 +14,6 @@ export const cellSlice = createSlice({
   initialState,
   reducers: {
     ...reducers,
-    insertCellBefore: {
-      reducer: (state, action: PayloadAction<IInsertCellBefore>) => {
-        const {
-          payload: { id, type, referenceId },
-        } = action;
-        state.data[id] = {
-          content: '',
-          id,
-          type,
-        };
-        const index = state.order.findIndex(id => id === referenceId);
-        index < 0 ? state.order.push(id) : state.order.splice(index, 0, id);
-      },
-      prepare: (type: TCellTypes, referenceId: string | null) => ({
-        payload: { id: nanoid(), type, referenceId },
-      }),
-    },
   },
 });
 
