@@ -4,13 +4,14 @@ import { useAppSelector } from '../../redux/hooks';
 import { selectCellsList } from '../../redux/selectors/cells';
 import CellListItem from './components/cell-list-item';
 import AddCell from '../add-cell';
+import { ICell } from '../../redux';
 
 interface ICellListProps {
   service: Service | null;
 }
 
 const CellList: FC<ICellListProps> = ({ service }) => {
-  const cellList = useAppSelector(selectCellsList);
+  const cellList = useAppSelector(selectCellsList) as ICell[];
   const hasCells = cellList.length > 0;
 
   return (

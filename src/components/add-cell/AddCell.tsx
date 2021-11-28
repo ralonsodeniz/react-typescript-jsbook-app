@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useBoundActions } from '../../redux/hooks';
-import { CellTypes } from '../../redux';
+import { CELL_TYPES } from '../../redux';
 import { TRANSLATIONS } from '../cell-list/components/action-bar/translations';
 import { Container, Divider, ButtonsContainer } from './AddCell.styled';
 
@@ -12,9 +12,9 @@ interface IAddCellProps {
 const AddCell: FC<IAddCellProps> = ({ prevCellId, forceVisibility }) => {
   const { insertCellAfter } = useBoundActions();
 
-  const handleAddCodeCell = () => insertCellAfter(CellTypes.CODE, prevCellId);
+  const handleAddCodeCell = () => insertCellAfter(CELL_TYPES.CODE, prevCellId);
 
-  const handleAddTextCell = () => insertCellAfter(CellTypes.TEXT, prevCellId);
+  const handleAddTextCell = () => insertCellAfter(CELL_TYPES.TEXT, prevCellId);
 
   return (
     <Container $forceVisibility={forceVisibility}>

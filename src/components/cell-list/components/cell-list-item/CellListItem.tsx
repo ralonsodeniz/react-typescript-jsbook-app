@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Service } from 'esbuild-wasm';
-import { CellTypes, ICell } from '../../../../redux';
+import { CELL_TYPES, ICell } from '../../../../redux';
 import CodeCell from '../../../code-cell';
 import TextEditor from '../../../text-editor';
 import ActionBar from '../action-bar';
@@ -14,7 +14,7 @@ interface ICellListItemProps {
 const CellListItem: FC<ICellListItemProps> = ({ cell, service }) => {
   return (
     <Container>
-      {cell.type === CellTypes.CODE ? (
+      {cell.type === CELL_TYPES.CODE ? (
         <>
           <ActionBarContainer>
             <ActionBar id={cell.id} />

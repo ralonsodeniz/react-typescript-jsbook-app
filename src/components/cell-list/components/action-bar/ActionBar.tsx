@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useBoundActions } from '../../../../redux/hooks';
-import { CellDirections, TCellDirection } from '../../../../redux';
+import { CELL_DIRECTIONS, TCellDirection } from '../../../../redux';
 import { Container } from './ActionBar.styled';
 
 interface IActionBarProps {
@@ -17,7 +17,7 @@ const ActionBar: FC<IActionBarProps> = ({ id }) => {
     <Container>
       <button
         className="button is-primary is-small"
-        onClick={() => handleMoveCell(CellDirections.UP)}
+        onClick={() => handleMoveCell(CELL_DIRECTIONS.UP)}
       >
         <span className="icon">
           <i className="fas fa-arrow-up" />
@@ -25,7 +25,7 @@ const ActionBar: FC<IActionBarProps> = ({ id }) => {
       </button>
       <button
         className="button is-primary is-small"
-        onClick={() => handleMoveCell(CellDirections.DOWN)}
+        onClick={() => handleMoveCell(CELL_DIRECTIONS.DOWN)}
       >
         <span className="icon">
           <i className="fas fa-arrow-down" />

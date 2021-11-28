@@ -1,12 +1,20 @@
-import { CaseReducer, nanoid, PayloadAction } from '@reduxjs/toolkit';
+import {
+  CaseReducer,
+  createEntityAdapter,
+  EntityId,
+  nanoid,
+  PayloadAction,
+} from '@reduxjs/toolkit';
 import {
   ICellsState,
   ICell,
   IMoveCell,
   IInsertCellAfter,
   TCellTypes,
-  CellDirections,
-} from '../../types/cell';
+  CELL_DIRECTIONS,
+} from '../../types/cells';
+
+export const cellsAdapter = createEntityAdapter<ICell>();
 
 const moveCell: CaseReducer<ICellsState, PayloadAction<IMoveCell>> = (
   state,
@@ -15,83 +23,60 @@ const moveCell: CaseReducer<ICellsState, PayloadAction<IMoveCell>> = (
   const {
     payload: { direction, id },
   } = action;
-  const index = state.order.findIndex(orderId => orderId === id);
-  const targetIndex = direction === CellDirections.UP ? index - 1 : index + 1;
+  const index = state.ids.findIndex(orderId => orderId === id);
+  const targetIndex = direction === CELL_DIRECTIONS.UP ? index - 1 : index + 1;
   const newOrder =
-    targetIndex < 0 || targetIndex > state.order.length - 1
-      ? [...state.order]
-      : state.order.reduce<string[]>((accumulator, orderId, orderIndex) => {
+    targetIndex < 0 || targetIndex > state.ids.length - 1
+      ? [...state.ids]
+      : state.ids.reduce<EntityId[]>((accumulator, orderId, orderIndex) => {
           if (orderId === id) return accumulator;
           return orderIndex === targetIndex
-            ? direction === CellDirections.UP
+            ? direction === CELL_DIRECTIONS.UP
               ? [...accumulator, id, orderId]
               : [...accumulator, orderId, id]
             : [...accumulator, orderId];
         }, []);
   return {
     ...state,
-    order: newOrder,
+    ids: newOrder,
   };
 };
 
-const deleteCell: CaseReducer<ICellsState, PayloadAction<string>> = (
-  state,
-  action,
-) => {
-  const { [action.payload]: deletedCell, ...newData } = state.data;
-  const newOrder = state.order.filter(id => id !== action.payload);
-  return {
-    ...state,
-    order: newOrder,
-    data: newData,
-  };
-};
+const deleteCell: CaseReducer<
+  ICellsState,
+  PayloadAction<string>
+> = cellsAdapter && cellsAdapter.removeOne;
 
-const updateCell: CaseReducer<ICellsState, PayloadAction<ICell>> = (
-  state,
-  action,
-) => {
-  const {
-    payload: { id, content },
-  } = action;
-  const newData = {
-    ...state.data,
-    [id]: {
-      ...state.data[id],
-      content,
-    },
-  };
-  return {
-    ...state,
-    data: newData,
-  };
-};
+const updateCell: CaseReducer<
+  ICellsState,
+  PayloadAction<ICell>
+> = cellsAdapter && cellsAdapter.upsertOne;
 
 const insertCellAfter = {
   reducer: (state: ICellsState, action: PayloadAction<IInsertCellAfter>) => {
     const {
       payload: { id, type, referenceId },
     } = action;
-    const newOrder = state.order.some(id => id === referenceId)
-      ? state.order.reduce<string[]>(
+    const newOrder = state.ids.some(id => id === referenceId)
+      ? state.ids.reduce<EntityId[]>(
           (accumulator, element) =>
             element === referenceId
               ? [...accumulator, element, id]
               : [...accumulator, element],
           [],
         )
-      : [id, ...state.order];
+      : [id, ...state.ids];
     return {
       ...state,
-      data: {
-        ...state.data,
+      entities: {
+        ...state.entities,
         [id]: {
           content: '',
           id,
           type,
         },
       },
-      order: newOrder,
+      ids: newOrder,
     };
   },
   prepare: (type: TCellTypes, referenceId: string | null) => ({
@@ -99,4 +84,4 @@ const insertCellAfter = {
   }),
 };
 
-export const reducers = { moveCell, deleteCell, updateCell, insertCellAfter };
+export const reducers = { deleteCell, updateCell, moveCell, insertCellAfter };

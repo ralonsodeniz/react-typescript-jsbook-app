@@ -1,16 +1,18 @@
-export enum CellTypes {
+import { EntityState } from '@reduxjs/toolkit';
+
+export enum CELL_TYPES {
   CODE = 'code',
   TEXT = 'text',
 }
 
-export enum CellDirections {
+export enum CELL_DIRECTIONS {
   UP = 'up',
   DOWN = 'down',
 }
 
-export type TCellTypes = `${CellTypes}`;
+export type TCellTypes = `${CELL_TYPES}`;
 
-export type TCellDirection = `${CellDirections}`;
+export type TCellDirection = `${CELL_DIRECTIONS}`;
 
 export interface ICell {
   id: string;
@@ -18,14 +20,12 @@ export interface ICell {
   content?: string;
 }
 
-export interface ICellsState {
+export interface ICellInitialState {
   loading: boolean;
   error: string | null;
-  order: string[];
-  data: {
-    [key: string]: ICell;
-  };
 }
+
+export interface ICellsState extends EntityState<ICell>, ICellInitialState {}
 
 export interface IMoveCell {
   id: string;
