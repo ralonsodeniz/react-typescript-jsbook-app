@@ -32,7 +32,7 @@ export interface IMoveCell {
   direction: TCellDirection;
 }
 
-export interface IInsertCellBefore {
+export interface IInsertCellAfter {
   referenceId: string | null;
   type: TCellTypes;
   id: string;

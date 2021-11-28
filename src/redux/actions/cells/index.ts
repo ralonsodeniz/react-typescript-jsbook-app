@@ -3,7 +3,7 @@ import {
   ICellsState,
   ICell,
   IMoveCell,
-  IInsertCellBefore,
+  IInsertCellAfter,
   TCellTypes,
   CellDirections,
 } from '../../types/cell';
@@ -67,8 +67,8 @@ const updateCell: CaseReducer<ICellsState, PayloadAction<ICell>> = (
   };
 };
 
-const insertCellBefore = {
-  reducer: (state: ICellsState, action: PayloadAction<IInsertCellBefore>) => {
+const insertCellAfter = {
+  reducer: (state: ICellsState, action: PayloadAction<IInsertCellAfter>) => {
     const {
       payload: { id, type, referenceId },
     } = action;
@@ -80,7 +80,7 @@ const insertCellBefore = {
               : [...accumulator, element],
           [],
         )
-      : [...state.order, id];
+      : [id, ...state.order];
     return {
       ...state,
       data: {
@@ -99,4 +99,4 @@ const insertCellBefore = {
   }),
 };
 
-export const reducers = { moveCell, deleteCell, updateCell, insertCellBefore };
+export const reducers = { moveCell, deleteCell, updateCell, insertCellAfter };
