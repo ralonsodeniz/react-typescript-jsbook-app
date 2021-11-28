@@ -1,6 +1,16 @@
-export type TCellTypes = 'code' | 'text';
+export enum CellTypes {
+  CODE = 'code',
+  TEXT = 'text',
+}
 
-export type TCellDirection = 'up' | 'down';
+export enum CellDirections {
+  UP = 'up',
+  DOWN = 'down',
+}
+
+export type TCellTypes = `${CellTypes}`;
+
+export type TCellDirection = `${CellDirections}`;
 
 export interface ICell {
   id: string;

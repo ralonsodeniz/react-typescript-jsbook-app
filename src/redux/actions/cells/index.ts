@@ -1,14 +1,11 @@
-import {
-  CaseReducer,
-  nanoid,
-  PayloadAction,
-} from '@reduxjs/toolkit';
+import { CaseReducer, nanoid, PayloadAction } from '@reduxjs/toolkit';
 import {
   ICellsState,
   ICell,
   IMoveCell,
   IInsertCellBefore,
   TCellTypes,
+  CellDirections,
 } from '../../types/cell';
 
 const moveCell: CaseReducer<ICellsState, PayloadAction<IMoveCell>> = (
@@ -19,16 +16,16 @@ const moveCell: CaseReducer<ICellsState, PayloadAction<IMoveCell>> = (
     payload: { direction, id },
   } = action;
   const index = state.order.findIndex(orderId => orderId === id);
-  const targetIndex = direction === 'up' ? index - 1 : index + 1;
+  const targetIndex = direction === CellDirections.UP ? index - 1 : index + 1;
   const newOrder =
     targetIndex < 0 || targetIndex > state.order.length - 1
       ? [...state.order]
       : state.order.reduce<string[]>((accumulator, orderId, orderIndex) => {
           if (orderId === id) return accumulator;
           return orderIndex === targetIndex
-            ? direction === 'up'
-              ? [...accumulator, orderId, id]
-              : [...accumulator, id, orderId]
+            ? direction === CellDirections.UP
+              ? [...accumulator, id, orderId]
+              : [...accumulator, orderId, id]
             : [...accumulator, orderId];
         }, []);
   return {
@@ -41,7 +38,6 @@ const deleteCell: CaseReducer<ICellsState, PayloadAction<string>> = (
   state,
   action,
 ) => {
-  delete state.data[action.payload];
   const { [action.payload]: deletedCell, ...newData } = state.data;
   const newOrder = state.order.filter(id => id !== action.payload);
   return {
@@ -72,7 +68,7 @@ const updateCell: CaseReducer<ICellsState, PayloadAction<ICell>> = (
 };
 
 const insertCellBefore = {
-  reducer: (state:ICellsState, action: PayloadAction<IInsertCellBefore>) => {
+  reducer: (state: ICellsState, action: PayloadAction<IInsertCellBefore>) => {
     const {
       payload: { id, type, referenceId },
     } = action;

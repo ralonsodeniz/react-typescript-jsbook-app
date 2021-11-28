@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './application';
 import reportWebVitals from './reportWebVitals';
 import 'bulmaswatch/superhero/bulmaswatch.min.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,9 +1,8 @@
 import { Provider } from 'react-redux';
 import { useStartService } from '../hooks/use-start-service';
 import GlobalStyle from '../styles/GlobalStyle';
-import CodeCell from '../components/code-cell';
-import TextEditor from '../components/text-editor';
 import { store } from '../redux';
+import CellList from '../components/cell-list';
 
 const App = () => {
   const service = useStartService();
@@ -11,8 +10,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <GlobalStyle />
-      <TextEditor />
-      <CodeCell service={service} />
+      <CellList service={service} />
     </Provider>
   );
 };

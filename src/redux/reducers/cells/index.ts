@@ -12,9 +12,7 @@ const initialState: ICellsState = {
 export const cellSlice = createSlice({
   name: 'cell',
   initialState,
-  reducers: {
-    ...reducers,
-  },
+  reducers,
 });
 
 export const { actions: cellActions, reducer: cellReducer } = cellSlice;

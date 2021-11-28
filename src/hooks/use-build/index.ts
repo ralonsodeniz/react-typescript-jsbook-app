@@ -3,7 +3,10 @@ import { unpkgPathPlugin } from './plugins/unpkg-path-plugin';
 import { fetchPlugin } from './plugins/fetch-plugin';
 import { Service } from 'esbuild-wasm';
 
-export const useBuild = (rawCode: string, service: Service | null) => {
+export const useBuild = (
+  rawCode: string | undefined,
+  service: Service | null,
+) => {
   const [code, setCode] = useState('');
   const [error, setError] = useState('');
   const handleBuild = async () => {
@@ -22,7 +25,7 @@ export const useBuild = (rawCode: string, service: Service | null) => {
         setError('');
         setCode(result.outputFiles[0].text);
       } catch (error: any) {
-        setError(error.message)
+        setError(error.message);
       }
     }
   };

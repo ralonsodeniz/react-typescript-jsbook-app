@@ -2,25 +2,35 @@ import { useState, useRef, FC } from 'react';
 import MDEditor from '@uiw/react-md-editor';
 import { Wrapper, Card } from './TextEditor.styled';
 import { useClickOutside } from '../../hooks/use-click-outside';
+import { useBoundActions } from '../../redux/hooks';
+import { ICell } from '../../redux';
 
-const TextEditor: FC = () => {
+interface ITextEditorProps {
+  cell: ICell;
+}
+
+const TextEditor: FC<ITextEditorProps> = ({ cell }) => {
+  const { content, id } = cell;
   const [editing, setEditing] = useState(false);
-  const [source, setSource] = useState('Hello World');
-  const editorRef = useRef<HTMLDivElement | null>(null);
+  const editorRef = useRef<HTMLDivElement>(null);
+  const { updateCell } = useBoundActions();
   const handleOpenEditMode = () => setEditing(true);
   const handleCloseEditMode = () => setEditing(false);
   const handleEditorChange = (value: string | undefined) =>
-    setSource(value ?? '');
+    updateCell({ content: value, id });
   useClickOutside([editorRef], handleCloseEditMode);
 
   return editing ? (
     <Wrapper ref={editorRef}>
-      <MDEditor value={source} onChange={handleEditorChange} />
+      <MDEditor value={content} onChange={handleEditorChange} />
     </Wrapper>
   ) : (
     <Wrapper onClick={handleOpenEditMode} className="card">
       <Card>
-        <MDEditor.Markdown source={source as string} className="card-content" />
+        <MDEditor.Markdown
+          source={content || 'Click to edit...'}
+          className="card-content"
+        />
       </Card>
     </Wrapper>
   );
