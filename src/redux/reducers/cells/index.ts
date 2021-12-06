@@ -1,11 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ICellInitialState } from '../../types/cells';
-import {cellsAdapter, reducers} from '../../actions/cells';
+import { cellsAdapter, reducers } from '../../actions/cells';
 
-const initialState = cellsAdapter.getInitialState<ICellInitialState>({
-  loading: false,
-  error: null,
-});
+const initialState = cellsAdapter.getInitialState();
 
 export const cellSlice = createSlice({
   name: 'cell',

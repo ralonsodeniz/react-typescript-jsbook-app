@@ -18,14 +18,11 @@ export interface ICell {
   id: string;
   type?: TCellTypes;
   content?: string;
+  loading?: boolean;
+  error?: string | null;
 }
 
-export interface ICellInitialState {
-  loading: boolean;
-  error: string | null;
-}
-
-export interface ICellsState extends EntityState<ICell>, ICellInitialState {}
+export interface ICellsState extends EntityState<ICell> {}
 
 export interface IMoveCell {
   id: string;

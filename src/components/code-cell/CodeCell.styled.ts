@@ -5,3 +5,18 @@ export const Container = styled.div`
   display: flex;
   flex-direction: row;
 `;
+
+export const PreviewContainer =  styled.div`
+  background-color: white;
+  position: relative;
+  height: 100%;
+  flex: 1;
+  display: flex;
+`;
+
+export const ProgressContainer = styled.div`
+  align-self: center;
+  padding-left: 4%;
+  padding-right: 4%;
+  width: 100%;
+`;

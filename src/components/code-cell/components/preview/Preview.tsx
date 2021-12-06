@@ -1,11 +1,11 @@
 import { FC, useRef, useEffect } from 'react';
 import { html } from './config/base-html';
-import { Wrapper, Iframe } from './Preview.styled';
+import { Iframe } from './Preview.styled';
 import { wait } from '../../../../utils/wait';
 
 interface IPreviewProps {
-  code: string;
-  error: string;
+  code: string | undefined;
+  error: string | undefined;
 }
 
 const Preview: FC<IPreviewProps> = ({ code, error }) => {
@@ -21,14 +21,12 @@ const Preview: FC<IPreviewProps> = ({ code, error }) => {
   }, [code, error]);
 
   return (
-    <Wrapper>
-      <Iframe
-        title="preview"
-        sandbox="allow-scripts"
-        srcDoc={html}
-        ref={iframeRef}
-      />
-    </Wrapper>
+    <Iframe
+      title="preview"
+      sandbox="allow-scripts"
+      srcDoc={html}
+      ref={iframeRef}
+    />
   );
 };
 

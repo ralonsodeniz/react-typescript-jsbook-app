@@ -7,11 +7,11 @@ import Highlighter from 'monaco-jsx-highlighter';
 import { Wrapper, Button } from './CodeEditor.styled';
 
 interface ICodeEditorProps {
-  initialValue?: string;
+  value?: string;
   onChange(value:string): void,
 }
 
-const CodeEditor: FC<ICodeEditorProps> = ({ initialValue, onChange }) => {
+const CodeEditor: FC<ICodeEditorProps> = ({ value, onChange }) => {
   const editorRef = useRef<any>();
   const onEditorDidMount: EditorDidMount = (getValue, monacoEditor) => {
     editorRef.current = monacoEditor;
@@ -53,7 +53,7 @@ const CodeEditor: FC<ICodeEditorProps> = ({ initialValue, onChange }) => {
       </Button>
       <MonacoEditor
         editorDidMount={onEditorDidMount}
-        value={initialValue}
+        value={value}
         language="javascript"
         theme="dark"
         options={{

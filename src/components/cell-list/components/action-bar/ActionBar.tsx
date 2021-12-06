@@ -8,10 +8,13 @@ interface IActionBarProps {
 }
 
 const ActionBar: FC<IActionBarProps> = ({ id }) => {
-  const { deleteCell, moveCell } = useBoundActions();
+  const { deleteCell, moveCell, deleteBundle } = useBoundActions();
   const handleMoveCell = (direction: TCellDirection) =>
     moveCell({ id, direction });
-  const handleDeleteCell = () => deleteCell(id);
+  const handleDeleteCell = () => {
+    deleteCell(id);
+    deleteBundle(id);
+  };
 
   return (
     <Container>

@@ -1,18 +1,17 @@
 import { Provider } from 'react-redux';
-import { useStartService } from '../hooks/use-start-service';
 import GlobalStyle from '../styles/GlobalStyle';
 import { store } from '../redux';
 import CellList from '../components/cell-list';
+import EsbuildServiceProvider from "../contexts/esbuild-service";
 
-const App = () => {
-  const service = useStartService();
-
-  return (
-    <Provider store={store}>
+const App = () => (
+  <Provider store={store}>
+    <EsbuildServiceProvider>
       <GlobalStyle />
-      <CellList service={service} />
-    </Provider>
-  );
-};
+      <CellList />
+    </EsbuildServiceProvider>
+  </Provider>
+);
+
 
 export default App;

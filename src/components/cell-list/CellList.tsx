@@ -1,17 +1,11 @@
 import { FC, Fragment } from 'react';
-import { Service } from 'esbuild-wasm';
 import { useAppSelector } from '../../redux/hooks';
-import { selectCellsList } from '../../redux/selectors/cells';
+import { selectAllCells } from '../../redux/selectors/cells';
 import CellListItem from './components/cell-list-item';
 import AddCell from '../add-cell';
-import { ICell } from '../../redux';
 
-interface ICellListProps {
-  service: Service | null;
-}
-
-const CellList: FC<ICellListProps> = ({ service }) => {
-  const cellList = useAppSelector(selectCellsList) as ICell[];
+const CellList: FC = () => {
+  const cellList = useAppSelector(selectAllCells);
   const hasCells = cellList.length > 0;
 
   return (
@@ -19,7 +13,7 @@ const CellList: FC<ICellListProps> = ({ service }) => {
       <AddCell prevCellId={null} forceVisibility={!hasCells} />
       {cellList.map(cell => (
         <Fragment key={cell.id}>
-          <CellListItem cell={cell} service={service} />
+          <CellListItem cell={cell} />
           <AddCell prevCellId={cell.id} />
         </Fragment>
       ))}

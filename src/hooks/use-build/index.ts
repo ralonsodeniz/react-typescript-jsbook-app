@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { unpkgPathPlugin } from './plugins/unpkg-path-plugin';
 import { fetchPlugin } from './plugins/fetch-plugin';
-import { Service } from 'esbuild-wasm';
+import { Service, BuildFailure } from 'esbuild-wasm';
 
 export const useBuild = (
   rawCode: string | undefined,
@@ -24,8 +24,9 @@ export const useBuild = (
         });
         setError('');
         setCode(result.outputFiles[0].text);
-      } catch (error: any) {
-        setError(error.message);
+      } catch (error: unknown) {
+        const { message } = error as BuildFailure;
+        setError(message);
       }
     }
   };

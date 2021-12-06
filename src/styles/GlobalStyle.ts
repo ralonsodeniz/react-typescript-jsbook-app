@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
-import { Wrapper } from '../components/code-cell/components/preview/Preview.styled';
+import { PreviewContainer } from '../components/code-cell/CodeCell.styled';
 
 export default createGlobalStyle`
   .react-resizable-handle {
@@ -25,7 +25,7 @@ export default createGlobalStyle`
   }
 
   .react-draggable-transparent-selection {
-    ${Wrapper}:after {
+    ${PreviewContainer}:after {
       content: '';
       position: absolute;
       top:0;

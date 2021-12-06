@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import { Service } from 'esbuild-wasm';
 import { CELL_TYPES, ICell } from '../../../../redux';
 import CodeCell from '../../../code-cell';
 import TextEditor from '../../../text-editor';
@@ -8,10 +7,9 @@ import { Container, ActionBarContainer } from './CellListItem.styled';
 
 interface ICellListItemProps {
   cell: ICell;
-  service: Service | null;
 }
 
-const CellListItem: FC<ICellListItemProps> = ({ cell, service }) => {
+const CellListItem: FC<ICellListItemProps> = ({ cell }) => {
   return (
     <Container>
       {cell.type === CELL_TYPES.CODE ? (
@@ -19,7 +17,7 @@ const CellListItem: FC<ICellListItemProps> = ({ cell, service }) => {
           <ActionBarContainer>
             <ActionBar id={cell.id} />
           </ActionBarContainer>
-          <CodeCell service={service} cell={cell} />
+          <CodeCell cell={cell} />
         </>
       ) : (
         <>
